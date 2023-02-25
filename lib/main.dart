@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manager/state_managers.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class User {
   User({required this.id, required this.name});
 }
 
-class SimpleGeX extends GetxController {
+class SimpleGetX extends GetxController {
   var _count = 1000.obs;
   get count => _count;
 
@@ -62,16 +63,21 @@ final colors = [
   Colors.purple
 ];
 
-Widget renderContainer({required Color color}) {
+Widget renderContainer({required Color color, required int index}) {
   return Container(
     height: 300,
     color: color,
+    alignment: Alignment.center,
+    child: Text(
+      index.toString(),
+      style: const TextStyle(fontSize: 30),
+    ),
   );
 }
 
 class Home extends StatelessWidget {
   // var num = 1.obs;
-  var control = Get.put(SimpleGeX());
+  var control = Get.put(SimpleGetX());
 
   Home({super.key});
 
@@ -177,7 +183,7 @@ class RainbowGridView extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 100),
         itemBuilder: (context, index) =>
-            renderContainer(color: colors[index % 7]),
+            renderContainer(color: colors[index % 7], index: index),
         itemCount: 300,
       ),
       // GridView.count(
@@ -248,7 +254,7 @@ class RainbowListView extends StatelessWidget {
         appBar: AppBar(title: Text(title)),
         body: ListView.separated(
           itemBuilder: (context, index) =>
-              renderContainer(color: colors[index]),
+              renderContainer(color: colors[index], index: index),
           itemCount: colors.length,
           separatorBuilder: (context, index) => const SizedBox(
             height: 5,
@@ -262,185 +268,15 @@ class Rainbow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int i = 0;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rainbow'),
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: colors.map((e) => renderContainer(color: e)).toList(),
-        ),
-      ),
-    );
-  }
-}
-
-class First extends StatelessWidget {
-  First({super.key});
-
-  final SimpleGeX control = Get.find();
-  final user = User(id: 2, name: 'Family').obs;
-
-  @override
-  Widget build(BuildContext context) {
-    final simpleProvider = Provider.of<SimpleProvider>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('First'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(control.count != 1000 ? '${control.count}' : 'First',
-                style: const TextStyle(fontSize: 20)),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => Home());
-                },
-                child: const Text(
-                  'Home',
-                  style: TextStyle(fontSize: 20),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(simpleProvider.count.toString(),
-                style: const TextStyle(fontSize: 20)),
-            ElevatedButton(
-                onPressed: () {
-                  simpleProvider.increase();
-                },
-                child: const Text(
-                  'simpleProvider',
-                  style: TextStyle(fontSize: 20),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-
-            ///--------Something
-            Obx(() => Text('${user.value.id} && ${user.value.name}',
-                style: const TextStyle(fontSize: 20))),
-
-            // ElevatedButton(
-            //     onPressed: () {
-            //       user.update((user) {
-            //         user.id = 99;
-            //         user.name = 'okok';
-            //       });
-            //     },
-            //     child: const Text(
-            //       'simpleProvider',
-            //       style: TextStyle(fontSize: 20),
-            //     )),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Second extends StatelessWidget {
-  const Second({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final simpleProvider = Provider.of<SimpleProvider>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(Get.parameters['param'] ?? 'Second',
-                style: const TextStyle(fontSize: 20)),
-            ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text(
-                  'Back',
-                  style: TextStyle(fontSize: 20),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(simpleProvider.count.toString(),
-                style: const TextStyle(fontSize: 20)),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  simpleProvider.increase();
-                },
-                child: const Text(
-                  'Increase',
-                  style: TextStyle(fontSize: 20),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.bottomSheet(Container(
-                    color: Colors.yellow,
-                    height: 100,
-                    child:
-                        Column(children: const [Text('Hi'), Text('Flutter!')]),
-                  ));
-                },
-                child: const Text(
-                  'ButtomSheet',
-                  style: TextStyle(fontSize: 20),
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Third extends StatelessWidget {
-  const Third({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final simpleProvider = Provider.of<SimpleProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Third', style: TextStyle(fontSize: 20)),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(Get.parameters['id'] ?? 'Third',
-                style: const TextStyle(fontSize: 20)),
-            ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/');
-                },
-                child: const Text(
-                  'Back',
-                  style: TextStyle(fontSize: 20),
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(simpleProvider.count.toString(),
-                style: const TextStyle(fontSize: 20)),
-            ElevatedButton(
-                onPressed: () {
-                  simpleProvider.increase();
-                },
-                child: const Text(
-                  'Increase',
-                  style: TextStyle(fontSize: 20),
-                )),
-          ],
+          children:
+              colors.map((e) => renderContainer(color: e, index: i++)).toList(),
         ),
       ),
     );
