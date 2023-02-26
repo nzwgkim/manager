@@ -138,7 +138,7 @@ class Rainbow extends StatelessWidget {
 }
 
 class RainbowCustomScrollView extends StatelessWidget {
-  List<int> count = List.generate(10, (index) => index);
+  List<int> totnum = List.generate(10, (index) => index);
   final String title;
   RainbowCustomScrollView({required this.title, super.key});
 
@@ -150,8 +150,18 @@ class RainbowCustomScrollView extends StatelessWidget {
           SliverAppBar(
             title: Text(title),
           ),
-          renderSliverList(),
-          renderSliverListBuild(),
+          // renderSliverList(),
+          // renderSliverListBuild(),
+          SliverGrid.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
+            itemBuilder: (context, index) => renderContainer(
+                color: colors[index % colors.length], index: index),
+          )
+          // GridView.count(
+          //   crossAxisCount: 2,
+          //   children: colors.map((e) => renderContainer(color: e)).toList(),
+          // ),
         ],
       ),
     );
@@ -159,7 +169,7 @@ class RainbowCustomScrollView extends StatelessWidget {
 
   SliverList renderSliverList() {
     return SliverList(
-        delegate: SliverChildListDelegate(count
+        delegate: SliverChildListDelegate(totnum
             .map((e) =>
                 renderContainer(color: colors[e % colors.length], index: e))
             .toList()));
@@ -170,6 +180,6 @@ class RainbowCustomScrollView extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
             (context, index) => renderContainer(
                 color: colors[index % colors.length], index: index),
-            childCount: 100));
+            childCount: colors.length));
   }
 }
