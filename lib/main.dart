@@ -17,6 +17,7 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
       home: Home(),
       initialRoute: '/',
       getPages: [
@@ -98,7 +99,7 @@ class Home extends StatelessWidget {
                 Get.toNamed('/Second/Hi');
               },
               child: const Text(
-                'Second',
+                'Second(Param)',
                 style: TextStyle(fontSize: 20),
               )),
           ElevatedButton(
@@ -111,7 +112,7 @@ class Home extends StatelessWidget {
               )),
           ElevatedButton(
               onPressed: () {
-                Get.to(() => const Rainbow());
+                Get.to(() => Rainbow());
               },
               child: const Text(
                 'Rainbow',

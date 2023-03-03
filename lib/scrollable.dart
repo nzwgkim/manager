@@ -107,9 +107,13 @@ class RainbowListView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text(title)),
         body: ListView.separated(
-          itemBuilder: (context, index) =>
-              renderContainer(color: colors[index], index: index),
-          itemCount: colors.length,
+          // itemBuilder: (context, index) => renderContainer(
+          //     color: colors[index % colors.length], index: index),
+          itemBuilder: (context, index) => Text(
+            index.toString(),
+            style: const TextStyle(fontSize: 30),
+          ),
+          itemCount: 100,
           separatorBuilder: (context, index) => const SizedBox(
             height: 5,
           ),
@@ -118,7 +122,8 @@ class RainbowListView extends StatelessWidget {
 }
 
 class Rainbow extends StatelessWidget {
-  const Rainbow({super.key});
+  final items = List.generate(100, (index) => index);
+  Rainbow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +134,10 @@ class Rainbow extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children:
-              colors.map((e) => renderContainer(color: e, index: i++)).toList(),
+          children: items
+              .map((e) =>
+                  renderContainer(color: colors[e % colors.length], index: e))
+              .toList(),
         ),
       ),
     );
@@ -153,10 +160,16 @@ class RainbowCustomScrollView extends StatelessWidget {
           // renderSliverList(),
           // renderSliverListBuild(),
           SliverGrid.builder(
+            //SliverGridDelegateWithMaxCrossAxisExtent: 모르겠다.
+            // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            //   maxCrossAxisExtent: 150,
+            // ),
+// SliverGridDelegateWithFixedCrossAxisCount:가로로 몇개의 grid를 만들지 정한다.
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3),
             itemBuilder: (context, index) => renderContainer(
                 color: colors[index % colors.length], index: index),
+            itemCount: 100,
           )
           // GridView.count(
           //   crossAxisCount: 2,
