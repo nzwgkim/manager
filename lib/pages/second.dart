@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../simple_provider.dart';
+import '../states/simple_provider.dart';
 
 class Second extends StatelessWidget {
   const Second({super.key});

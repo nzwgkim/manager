@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manager/pages/reactive_state.dart';
-import 'package:manager/pages/simple_state.dart';
+import 'package:manager/states/reactive_state.dart';
+import 'package:manager/states/simple_state.dart';
 import 'package:manager/scrollables/scrollable.dart';
 import 'package:manager/pages/third.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +11,8 @@ import 'pages/second.dart';
 import 'scrollables/rainbow_custom_scrollview.dart';
 import 'scrollables/rainbow_gridview.dart';
 import 'scrollables/rainbow_reorderable_listview.dart';
-import 'simple_getx.dart';
-import 'simple_provider.dart';
+import 'states/simple_getx.dart';
+import 'states/simple_provider.dart';
 
 void main() {
   runApp(
