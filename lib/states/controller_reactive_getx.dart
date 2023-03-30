@@ -12,17 +12,16 @@ class ControllerReactiveGetX extends GetxController {
     _count(value);
   }
 
+  late Worker workerOnce, workerEver;
+
   @override
-  void onInit() {
-    ever(
-        _count,
-        (callback) => print(
-              'ever $_count',
-            ),
-        condition: () => _count() < 10); // 값이 바뀔때 마다 항상 실행됨.
-    // once(_count, (callback) => print('once')); // 한번만 실행됨
-    // debounce(_count, (callback) => print('once'),
-    //     time: const Duration(seconds: 3)); // 최종입력후 timer 이후 실행됨.
-    // super.onInit();
+  Future<void> onInit() async {
+    workerOnce = once(_count, (value) {
+      print("counter reached $value before 3 seconds.");
+    });
+    // 3.delay(workerOnce.dispose);
+    3.delay(() => print('3 second delay...'));
+    workerEver = ever(_count, (callback) => print('Ever... $_count'),
+        condition: () => _count() > 10);
   }
 }
