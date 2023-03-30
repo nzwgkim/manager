@@ -30,7 +30,7 @@ class First extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Get.to(() => const Home());
+                  Get.to(() => Home());
                 },
                 child: const Text('Home',
                     style: style, textAlign: TextAlign.center)),

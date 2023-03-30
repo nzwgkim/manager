@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manager/pages/with_getx.dart';
+import 'package:manager/pages/with_simple_getx.dart';
 import 'package:manager/pages/with_provider.dart';
 
 class SimpleState extends StatelessWidget {
@@ -20,7 +20,7 @@ class SimpleState extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: WithGetX(),
+                child: WithSimpleGetX(),
               ),
               const Expanded(
                 child: WithProvider(),

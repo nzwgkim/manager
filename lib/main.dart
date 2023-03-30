@@ -11,6 +11,7 @@ import 'pages/second.dart';
 import 'scrollables/rainbow_custom_scrollview.dart';
 import 'scrollables/rainbow_gridview.dart';
 import 'scrollables/rainbow_reorderable_listview.dart';
+import 'simple_getx.dart';
 import 'simple_provider.dart';
 
 void main() {
@@ -26,10 +27,10 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: const Home(),
+      home: Home(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const Home()),
+        GetPage(name: '/', page: () => Home()),
         GetPage(name: '/First', page: () => First()),
         GetPage(name: '/Second/:param', page: () => const Second()),
         // GetPage(name: '/Second', page: () => const Second()),
@@ -42,8 +43,10 @@ class MyHome extends StatelessWidget {
 class Home extends StatelessWidget {
   // var num = 1.obs;
   // final reactiveGetX = Get.put(ReactiveGetX());
+  final simpleGetX = Get.put(SimpleGetX());
+  final reactiveGetX = Get.put(ReactiveGetX());
 
-  const Home({super.key});
+  Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +102,26 @@ class Home extends StatelessWidget {
                   style: style.copyWith(color: Colors.red),
                 )),
             const SizedBox(
-              height: 20,
+              height: 60,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const SimpleState());
+                },
+                child: Text(
+                  'SimpleStateManage',
+                  style: style.copyWith(color: Colors.white),
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const ReactiveState());
+                },
+                child: Text(
+                  'ReactiveStateManage',
+                  style: style.copyWith(color: Colors.white),
+                )),
+            const SizedBox(
+              height: 60,
             ),
             ElevatedButton(
                 onPressed: () {
@@ -142,25 +164,6 @@ class Home extends StatelessWidget {
                 child: const Text(
                   'RainbowCustomScrollView',
                   style: style,
-                )),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => const SimpleState());
-                },
-                child: Text(
-                  'SimpleStateManage',
-                  style: style.copyWith(color: Colors.white),
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Get.to(() => const ReactiveState());
-                },
-                child: Text(
-                  'ReactiveStateManage',
-                  style: style.copyWith(color: Colors.white),
                 )),
           ],
         ),

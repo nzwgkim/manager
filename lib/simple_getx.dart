@@ -10,7 +10,7 @@ class SimpleGetX extends GetxController {
   }
 }
 
-class ReactiveGetX extends GetxController {
+class ReactiveGetX {
   RxInt _count = 1000.obs;
   get count => _count;
 

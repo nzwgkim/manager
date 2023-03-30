@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:manager/pages/with_getx.dart';
 import 'package:manager/pages/with_provider.dart';
+
+import 'with_reactive_getx.dart';
 
 class ReactiveState extends StatelessWidget {
   const ReactiveState({super.key});
@@ -20,7 +21,7 @@ class ReactiveState extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: WithGetX(),
+                child: WithReactiveGetX(),
               ),
               const Expanded(
                 child: WithProvider(),
