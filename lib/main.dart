@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manager/scrollable.dart';
-import 'package:manager/third.dart';
+import 'package:manager/pages/reactive_state.dart';
+import 'package:manager/pages/simple_state.dart';
+import 'package:manager/scrollables/scrollable.dart';
+import 'package:manager/pages/third.dart';
 import 'package:provider/provider.dart';
 
-import 'first.dart';
-import 'second.dart';
-import 'simple_getx.dart';
+import 'pages/first.dart';
+import 'pages/second.dart';
+import 'scrollables/rainbow_custom_scrollview.dart';
+import 'scrollables/rainbow_gridview.dart';
+import 'scrollables/rainbow_reorderable_listview.dart';
 import 'simple_provider.dart';
 
 void main() {
@@ -22,13 +26,13 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green),
-      home: Home(),
+      home: const Home(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => Home()),
+        GetPage(name: '/', page: () => const Home()),
         GetPage(name: '/First', page: () => First()),
         GetPage(name: '/Second/:param', page: () => const Second()),
+        // GetPage(name: '/Second', page: () => const Second()),
         GetPage(name: '/Third', page: () => const Third()),
       ],
     );
@@ -37,59 +41,62 @@ class MyHome extends StatelessWidget {
 
 class Home extends StatelessWidget {
   // var num = 1.obs;
-  final control = Get.put(SimpleGetX());
+  // final reactiveGetX = Get.put(ReactiveGetX());
 
-  Home({super.key});
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const style = TextStyle(fontSize: 20);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(() => Text(
-                  '${control.count}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  textAlign: TextAlign.center,
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  control.increase();
-                },
-                child: const Text(
-                  'Increase',
-                  style: TextStyle(fontSize: 20, color: Colors.yellow),
-                )),
+            // Obx(() => Text(
+            //       'Reactive: ${reactiveGetX.count}',
+            //       style: style,
+            //       textAlign: TextAlign.center,
+            //     )),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       reactiveGetX.increase();
+            //     },
+            //     child: Text(
+            //       'Increase ReactiveGetX',
+            //       style: style.copyWith(color: Colors.yellow),
+            //     )),
             ElevatedButton(
                 onPressed: () {
                   Get.to(() => First());
+                  // Get.toNamed('/First');
+                  // Navigator.of(context).pushNamed('/First');
                 },
                 child: const Text(
                   'First',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
-                  Get.toNamed('/Second/Hi');
+                  // parameter 전달하는 방법
+                  Get.toNamed('/Second/3456?aaa=qq&bbb=19df');
                 },
                 child: const Text(
-                  'Second(Param)',
-                  style: TextStyle(fontSize: 20),
+                  '/Second/3456?aaa=qq&bbb=19df',
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
                   Get.toNamed('/Third?id=woody');
                 },
-                child: const Text(
-                  'Third',
-                  style: TextStyle(fontSize: 20),
+                child: Text(
+                  '/Third?id=woody',
+                  style: style.copyWith(color: Colors.red),
                 )),
             const SizedBox(
               height: 20,
@@ -100,7 +107,7 @@ class Home extends StatelessWidget {
                 },
                 child: const Text(
                   'Rainbow',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
@@ -108,7 +115,7 @@ class Home extends StatelessWidget {
                 },
                 child: const Text(
                   'RainbowListView',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
@@ -117,7 +124,7 @@ class Home extends StatelessWidget {
                 },
                 child: const Text(
                   'RainbowReorderableListView',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
@@ -125,7 +132,7 @@ class Home extends StatelessWidget {
                 },
                 child: const Text(
                   'RainbowGridView',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             ElevatedButton(
                 onPressed: () {
@@ -134,11 +141,27 @@ class Home extends StatelessWidget {
                 },
                 child: const Text(
                   'RainbowCustomScrollView',
-                  style: TextStyle(fontSize: 20),
+                  style: style,
                 )),
             const SizedBox(
               height: 20,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const SimpleState());
+                },
+                child: Text(
+                  'SimpleStateManage',
+                  style: style.copyWith(color: Colors.white),
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const ReactiveState());
+                },
+                child: Text(
+                  'ReactiveStateManage',
+                  style: style.copyWith(color: Colors.white),
+                )),
           ],
         ),
       ),
