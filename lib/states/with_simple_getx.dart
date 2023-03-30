@@ -39,6 +39,14 @@ class WithSimpleGetX extends StatelessWidget {
                   'Increase SimpleGetX',
                   style: style.copyWith(color: Colors.yellow),
                 )),
+            ElevatedButton(
+                onPressed: () {
+                  simpleGetX.setNumber(777);
+                },
+                child: Text(
+                  'Set Number',
+                  style: style.copyWith(color: Colors.yellow),
+                )),
           ]),
     );
   }

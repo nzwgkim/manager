@@ -39,6 +39,14 @@ class WithReactiveGetX extends StatelessWidget {
                   'Increase ReactiveGetX',
                   style: style.copyWith(color: Colors.yellow),
                 )),
+            ElevatedButton(
+                onPressed: () {
+                  reactiveGetX.setNumber(4);
+                },
+                child: Text(
+                  'Set Number',
+                  style: style.copyWith(color: Colors.yellow),
+                )),
           ]),
     );
   }

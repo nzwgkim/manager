@@ -8,4 +8,9 @@ class ControllerSimpleGetX extends GetxController {
     _count++;
     update();
   }
+
+  setNumber(value) {
+    _count = value;
+    update();
+  }
 }
