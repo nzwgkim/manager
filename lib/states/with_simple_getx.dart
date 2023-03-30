@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'simple_getx.dart';
+import 'controller_reactive_getx.dart';
+import 'controller_simple_getx.dart';
 
 class WithSimpleGetX extends StatelessWidget {
   WithSimpleGetX({super.key});
 
-  // final simpleGetX = Get.put(SimpleGetX());
-  final SimpleGetX simpleGetX = Get.find<SimpleGetX>();
-  final ReactiveGetX reactiveGetX = Get.find<ReactiveGetX>();
+  final ControllerSimpleGetX simpleGetX = Get.find<ControllerSimpleGetX>();
+  final ControllerReactiveGetX reactiveGetX =
+      Get.find<ControllerReactiveGetX>();
 
   TextStyle style = const TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
   @override
@@ -19,9 +20,9 @@ class WithSimpleGetX extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Text: ${simpleGetX.count}',
+            Text('simpleGetX: ${simpleGetX.count}',
                 style: style, textAlign: TextAlign.center),
-            GetBuilder<SimpleGetX>(
+            GetBuilder<ControllerSimpleGetX>(
               builder: (controller) => Text('GetBuilder: ${controller.count}',
                   style: style, textAlign: TextAlign.center),
             ),
@@ -33,11 +34,10 @@ class WithSimpleGetX extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   simpleGetX.increase();
-                  print(simpleGetX.count.toString());
                 },
                 child: Text(
                   'Increase SimpleGetX',
-                  style: style,
+                  style: style.copyWith(color: Colors.yellow),
                 )),
           ]),
     );

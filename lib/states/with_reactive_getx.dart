@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'simple_getx.dart';
+import 'controller_reactive_getx.dart';
+import 'controller_simple_getx.dart';
 
 class WithReactiveGetX extends StatelessWidget {
   WithReactiveGetX({super.key});
 
-  final SimpleGetX simpleGetX = Get.find<SimpleGetX>();
-  final ReactiveGetX reactiveGetX = Get.find<ReactiveGetX>();
+  final ControllerSimpleGetX simpleGetX = Get.find<ControllerSimpleGetX>();
+  final ControllerReactiveGetX reactiveGetX =
+      Get.find<ControllerReactiveGetX>();
 
   TextStyle style = const TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
   @override
@@ -18,9 +20,9 @@ class WithReactiveGetX extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Text: ${reactiveGetX.count}',
+            Text('reactiveGetX: ${reactiveGetX.count}',
                 style: style, textAlign: TextAlign.center),
-            GetBuilder<SimpleGetX>(
+            GetBuilder<ControllerSimpleGetX>(
               builder: (controller) => Text('GetBuilder: ${controller.count}',
                   style: style, textAlign: TextAlign.center),
             ),

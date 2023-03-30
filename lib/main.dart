@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manager/states/reactive_state.dart';
-import 'package:manager/states/simple_state.dart';
-import 'package:manager/scrollables/scrollable.dart';
-import 'package:manager/pages/third.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/first.dart';
 import 'pages/second.dart';
+import 'pages/third.dart';
 import 'scrollables/rainbow_custom_scrollview.dart';
 import 'scrollables/rainbow_gridview.dart';
 import 'scrollables/rainbow_reorderable_listview.dart';
-import 'states/simple_getx.dart';
+import 'scrollables/scrollable.dart';
+import 'states/controller_reactive_getx.dart';
+import 'states/controller_simple_getx.dart';
 import 'states/simple_provider.dart';
+import 'states/reactive_state.dart';
+import 'states/simple_state.dart';
 
 void main() {
   runApp(
@@ -43,8 +44,8 @@ class MyHome extends StatelessWidget {
 class Home extends StatelessWidget {
   // var num = 1.obs;
   // final reactiveGetX = Get.put(ReactiveGetX());
-  final simpleGetX = Get.put(SimpleGetX());
-  final reactiveGetX = Get.put(ReactiveGetX());
+  final controllerSimpleGetX = Get.put(ControllerSimpleGetX());
+  final controllerReactiveGetX = Get.put(ControllerReactiveGetX());
 
   Home({super.key});
 
@@ -109,7 +110,7 @@ class Home extends StatelessWidget {
                   Get.to(() => const SimpleState());
                 },
                 child: Text(
-                  'SimpleStateManage',
+                  'SimpleState',
                   style: style.copyWith(color: Colors.white),
                 )),
             ElevatedButton(
@@ -117,7 +118,7 @@ class Home extends StatelessWidget {
                   Get.to(() => const ReactiveState());
                 },
                 child: Text(
-                  'ReactiveStateManage',
+                  'ReactiveState',
                   style: style.copyWith(color: Colors.white),
                 )),
             const SizedBox(
