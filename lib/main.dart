@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manager/pages/dependancy/dependancy_manage_page.dart';
 import 'package:provider/provider.dart';
 
+import 'pages/binding_page.dart';
+import 'pages/dependancy/depandancy_controller.dart';
 import 'pages/first.dart';
 import 'pages/second.dart';
 import 'pages/third.dart';
@@ -36,6 +39,15 @@ class MyHome extends StatelessWidget {
         GetPage(name: '/Second/:param', page: () => const Second()),
         // GetPage(name: '/Second', page: () => const Second()),
         GetPage(name: '/Third', page: () => const Third()),
+        GetPage(
+          name: '/binding',
+          page: () => const BindingPage(),
+          binding: BindingsBuilder(
+            () {
+              Get.put(DependancyController());
+            },
+          ),
+        )
       ],
     );
   }
@@ -103,7 +115,7 @@ class Home extends StatelessWidget {
                   style: style.copyWith(color: Colors.red),
                 )),
             const SizedBox(
-              height: 60,
+              height: 40,
             ),
             ElevatedButton(
                 onPressed: () {
@@ -122,7 +134,26 @@ class Home extends StatelessWidget {
                   style: style.copyWith(color: Colors.white),
                 )),
             const SizedBox(
-              height: 60,
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const DependancyManagePage());
+                },
+                child: Text(
+                  'DependancyManagePage',
+                  style: style.copyWith(color: Colors.white),
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/binding');
+                },
+                child: Text(
+                  'Binding',
+                  style: style.copyWith(color: Colors.white),
+                )),
+            const SizedBox(
+              height: 20,
             ),
             ElevatedButton(
                 onPressed: () {
